@@ -1,0 +1,68 @@
+Installation
+============
+
+Make sure Composer is installed globally, as explained in the
+[installation chapter](https://getcomposer.org/doc/00-intro.md)
+of the Composer documentation.
+
+Applications that use Symfony Flex
+----------------------------------
+
+Open a command console, enter your project directory and execute:
+
+```console
+composer require viaevista/vite-bundle
+```
+
+Applications that don't use Symfony Flex
+----------------------------------------
+
+### Step 1: Download the Bundle
+
+Open a command console, enter your project directory and execute the
+following command to download the latest stable version of this bundle:
+
+```console
+composer require viaevista/vite-bundle
+```
+
+### Step 2: Enable the Bundle
+
+Then, enable the bundle by adding it to the list of registered bundles
+in the `config/bundles.php` file of your project:
+
+```php
+// config/bundles.php
+
+return [
+    // ...
+    Viaevista\ViteBundle\ViaevistaViteBundle::class => ['all' => true],
+];
+```
+
+### Step 3: Configure the Bundle
+
+Create a `viaevista_vite.yaml` file in your `config/packages` directory and configure the bundle to match
+your Vite.js setup.
+
+```yaml
+viaevista_vite:
+    server:
+        # Enable or disable the server mode
+        use_server_mode: '%env(bool:VITE_SERVER_MODE)%'
+        # The host of your Vite.js when development server is running
+        host: 'http://localhost:5173'
+    
+    # The base path configured in your Vite.js config
+    base_path: '/build/'
+```
+
+### Step 4: Define your environment variables
+
+In your `.env` file, define the `VITE_SERVER_MODE` variable to enable or disable the server mode.
+
+Set 1 when your using the vite.js development server, and 0 when you have built your assets.
+
+```dotenv
+VITE_SERVER_MODE=0
+```

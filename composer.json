@@ -1,0 +1,14 @@
+{
+    "name": "viaevista/vite-bundle",
+    "type": "symfony-bundle",
+    "description": "Provide Vite.js bundling inside Twig template",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Viaevista\\ViteBundle\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=8.2"
+    }
+}
