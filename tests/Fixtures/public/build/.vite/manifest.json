@@ -1,0 +1,38 @@
+{
+  "app.js": {
+    "file": "app.js-chunk-hash.js",
+    "name": "app.js",
+    "src": "app.js",
+    "isEntry": true,
+    "dynamicImports": [
+      "views/Index.vue",
+      "views/About.vue"
+    ],
+    "css": [
+      "app-file-chunk-hash.css",
+      "app-other-file-chunk-hash.css"
+    ],
+    "imports": [
+      "imported-js-chunk-hash.js",
+      "other-imported-js-chunk-hash.js"
+    ]
+  },
+  "views/Index.vue": {
+    "file": "Index-chunk-hash.js",
+    "name": "Index",
+    "src": "views/Index.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "app.js"
+    ]
+  },
+  "views/About.vue": {
+    "file": "About-chunk-hash.js",
+    "name": "About",
+    "src": "views/About.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "app.js"
+    ]
+  }
+}
