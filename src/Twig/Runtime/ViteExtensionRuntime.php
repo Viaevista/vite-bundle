@@ -41,10 +41,12 @@ readonly class ViteExtensionRuntime implements RuntimeExtensionInterface
 
     private function generateHtmlForServerMode(string $entrypoint): string
     {
-        return <<<HTML
-<script type="module" src="{$this->viteServeurHost}{$this->generateAssetUrl('@vite/client')}"></script>
-<script type="module" src="{$this->viteServeurHost}{$this->generateAssetUrl($entrypoint)}"></script>
-HTML;
+        $htmlElements = [
+            '<script type="module" src="'. $this->viteServeurHost . $this->generateAssetUrl('/@vite/client') .'"></script>',
+            '<script type="module" src="'. $this->viteServeurHost . $this->generateAssetUrl($entrypoint) . '"></script>',
+        ];
+
+        return implode(PHP_EOL, $htmlElements);
     }
 
     private function generateHtmlForStaticAssets(string $entrypoint): string
@@ -54,22 +56,17 @@ HTML;
         $css = $manifest['css'] ?? '';
         $imports = $manifest['imports'] ?? [];
 
-        $html = <<<HTML
-<script type="module" src="{$this->generateAssetUrl($file)}"></script>
-HTML;
+        $htmlElements = ['<script type="module" src="'. $this->generateAssetUrl($file) . '"></script>'];
+
         foreach ($css as $cssFile) {
-            $html .= <<<HTML
-<link rel="stylesheet" href="{$this->generateAssetUrl($cssFile)}"/>
-HTML;
+            $htmlElements[] = '<link rel="stylesheet" href="'. $this->generateAssetUrl($cssFile) . '"/>';
         }
 
         foreach ($imports as $import) {
-            $html .= <<<HTML
-<link rel="modulepreload" href="{$this->generateAssetUrl($import)}"/>
-HTML;
+            $htmlElements[] = '<link rel="modulepreload" href="'. $this->generateAssetUrl($import) .'"/>';
         }
 
-        return $html;
+        return implode(PHP_EOL, $htmlElements);
     }
 
     private function parseManifest(string $entrypoint): array
