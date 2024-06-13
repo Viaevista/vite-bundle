@@ -9,6 +9,8 @@
         }
     },
     "require": {
-        "php": ">=8.2"
+        "php": ">=8.2",
+        "symfony/twig-bundle": "^7.0",
+        "twig/twig": "^3.10"
     }
 }
