@@ -8,9 +8,21 @@
             "Viaevista\\ViteBundle\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Viaevista\\ViteBundle\\Tests\\": "tests/"
+        }
+    },
     "require": {
         "php": ">=8.2",
         "symfony/twig-bundle": "^7.0",
         "twig/twig": "^3.10"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.2"
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test:coverage": "XDEBUG_MODE=coverage vendor/bin/phpunit"
     }
 }
