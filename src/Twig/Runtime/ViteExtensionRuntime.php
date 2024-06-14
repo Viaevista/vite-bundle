@@ -3,6 +3,7 @@
 namespace  Viaevista\ViteBundle\Twig\Runtime;
 
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\Filesystem\Filesystem;
 use Twig\Extension\RuntimeExtensionInterface;
 
 readonly class ViteExtensionRuntime implements RuntimeExtensionInterface
@@ -19,6 +20,7 @@ readonly class ViteExtensionRuntime implements RuntimeExtensionInterface
         string $viteServeurHost,
         #[Autowire('%viaevista_vite.base_path%')]
         string $basePath,
+        private Filesystem $filesystem,
     ) {
         $this->viteServeurHost = rtrim($viteServeurHost, '/');
 
@@ -72,7 +74,7 @@ readonly class ViteExtensionRuntime implements RuntimeExtensionInterface
     private function parseManifest(string $entrypoint): array
     {
         $manifestPath = $this->publicDir . $this->generateAssetUrl('.vite/manifest.json');
-        $manifestContent = file_get_contents($manifestPath) ?: '';
+        $manifestContent = $this->filesystem->readFile($manifestPath);
         $manifestParsed = json_decode($manifestContent, true);
         return is_array($manifestParsed) ? ($manifestParsed[$entrypoint] ?? []) : [];
     }

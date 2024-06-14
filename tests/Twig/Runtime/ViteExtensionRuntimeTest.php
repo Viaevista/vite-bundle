@@ -3,6 +3,7 @@
 namespace Viaevista\ViteBundle\Tests\Twig\Runtime;
 
 use PHPUnit\Framework\Attributes\DataProvider;
+use Symfony\Component\Filesystem\Filesystem;
 use Viaevista\ViteBundle\Tests\UnitTestCase;
 use Viaevista\ViteBundle\Twig\Runtime\ViteExtensionRuntime;
 
@@ -63,11 +64,18 @@ HTML;
 
     private function createViteExtensionRuntime(bool $useServerMode, string $viteServerHost, string $basePath): ViteExtensionRuntime
     {
+        $filesystem = $this->createMock(Filesystem::class);
+        $filesystem
+            ->method('readFile')
+            ->with('/var/path/to/public/build/.vite/manifest.json')
+            ->willReturn(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'manifest.json'));
+
         return new ViteExtensionRuntime(
-            __DIR__ . '/../../Fixtures/public',
+            '/var/path/to/public',
             $useServerMode,
             $viteServerHost,
-            $basePath
+            $basePath,
+            $filesystem,
         );
     }
 }
