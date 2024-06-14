@@ -15,8 +15,9 @@
     },
     "require": {
         "php": ">=8.2",
-        "symfony/twig-bundle": "^7.0",
-        "twig/twig": "^3.10"
+        "symfony/twig-bundle": "^7.1",
+        "twig/twig": "^3.0",
+        "symfony/filesystem": "^7.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^11.2"
