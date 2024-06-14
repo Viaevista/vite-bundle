@@ -8,11 +8,7 @@ of the Composer documentation.
 Applications that use Symfony Flex
 ----------------------------------
 
-Open a command console, enter your project directory and execute:
-
-```console
-composer require viaevista/vite-bundle
-```
+This package does not support Symfony Flex yet.
 
 Applications that don't use Symfony Flex
 ----------------------------------------
@@ -49,7 +45,7 @@ your Vite.js setup.
 viaevista_vite:
     server:
         # Enable or disable the server mode
-        use_server_mode: '%env(bool:VITE_SERVER_MODE)%'
+        use_server_mode: '%env(bool:ENABLE_VITE_SERVER)%'
         # The host of your Vite.js when development server is running
         host: 'http://localhost:5173'
     
@@ -64,5 +60,42 @@ In your `.env` file, define the `VITE_SERVER_MODE` variable to enable or disable
 Set 1 when your using the vite.js development server, and 0 when you have built your assets.
 
 ```dotenv
-VITE_SERVER_MODE=0
+ENABLE_VITE_SERVER=0
 ```
+
+### Step 5 : Configure your Vite.js
+
+In the root of your Symfony project, add a `vite.config.js` with this minimal configuration for any Vite.js project.
+
+```javascript
+import { defineConfig } from 'vite'
+
+const sourcesFolder = './assets';
+const basePath = 'build';
+const input = {
+    'app.js': `${sourcesFolder}/app.js`,
+};
+
+export default defineConfig({
+    root: sourcesFolder,
+    base: `/${basePath}/`,
+    envDir: '../',
+    build: {
+        manifest: true,
+        outDir: `../public/${basePath}`,
+        rollupOptions: {
+            input,
+        },
+    },
+});
+```
+
+Change `sourcesFolder`, `basePath` and `input` to match your project.
+- `sourcesFolder` is where your Js and CSS to be compiled are located. This is usually the `assets` folder in Symfony projects.
+- `basePath` is the folder where Vite.js will output the compiled assets. **This should match the `base_path` configuration in the `viaevista_vite.yaml` file.**
+- Add in `input` the entry points of your application,
+  - Key are the input name (the name which will be used in the vite tag in your Twig views) and the value is the path to the file.
+
+**When building your assets, compiled files should be under the Symfony `public` folder to be served by the web server.**
+
+
