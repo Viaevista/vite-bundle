@@ -20,7 +20,6 @@ final class ViteExtensionRuntimeTest extends UnitTestCase
         yield ['http://localhost:5173/', '/build/', 'app.js'];
         yield ['http://localhost:5173/', '/build/', '/app.js'];
         yield ['http://localhost:5173/', '/build', '/app.js'];
-
     }
 
     #[DataProvider('provideServerModeCases')]

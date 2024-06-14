@@ -11,7 +11,6 @@ class ViaevistaViteBundle extends AbstractBundle
 {
     private const VITE_SERVER_HOST_DEFAULT = 'http://localhost:5173';
     private const VITE_SERVER_HOST_USE_SERVER_MODE_DEFAULT = false;
-
     private const VITE_BASE_PATH_DEFAULT = '';
 
 
@@ -36,7 +35,7 @@ class ViaevistaViteBundle extends AbstractBundle
 
         $useServerMode = $config['server']['use_server_mode'] ?? self::VITE_SERVER_HOST_DEFAULT;
         $viteServerHost = $config['server']['host'] ?? self::VITE_SERVER_HOST_USE_SERVER_MODE_DEFAULT;
-        $viteBasePath = $config['base_path'] ?? '';
+        $viteBasePath = $config['base_path'] ?? self::VITE_BASE_PATH_DEFAULT;
 
         $container->parameters()->set('viaevista_vite.server.use_server_mode', $useServerMode);
         $container->parameters()->set('viaevista_vite.server.host', $viteServerHost);
