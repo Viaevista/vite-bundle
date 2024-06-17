@@ -20,5 +20,4 @@ class ViteExtensionTest extends UnitTestCase
         $this->assertSame('vite', $function->getName());
         $this->assertSame([ViteExtensionRuntime::class, 'includeViteAssets'], $function->getCallable());
     }
-
 }

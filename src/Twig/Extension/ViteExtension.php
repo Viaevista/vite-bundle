@@ -1,4 +1,5 @@
 <?php
+
 namespace Viaevista\ViteBundle\Twig\Extension;
 
 use Twig\Extension\AbstractExtension;
@@ -10,7 +11,7 @@ class ViteExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('vite',  [ViteExtensionRuntime::class, 'includeViteAssets'], ['is_safe' => ['html']]),
+            new TwigFunction('vite', [ViteExtensionRuntime::class, 'includeViteAssets'], ['is_safe' => ['html']]),
         ];
     }
 }
