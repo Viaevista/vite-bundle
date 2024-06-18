@@ -29,6 +29,12 @@ class ViaevistaViteBundle extends AbstractBundle
         ;
     }
 
+    /**
+     * @param array{server:array{use_server_mode: bool|null, host: string|null}, base_path: string|null} $config
+     * @param ContainerConfigurator $container
+     * @param ContainerBuilder $builder
+     * @return void
+     */
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
     {
         $container->import('../config/services.yaml');

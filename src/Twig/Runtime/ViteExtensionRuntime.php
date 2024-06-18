@@ -55,7 +55,7 @@ readonly class ViteExtensionRuntime implements RuntimeExtensionInterface
     {
         $manifest = $this->parseManifest($entrypoint);
         $file = $manifest['file'] ?? '';
-        $css = $manifest['css'] ?? '';
+        $css = $manifest['css'] ?? [];
         $imports = $manifest['imports'] ?? [];
 
         $htmlElements = ['<script type="module" src="' . $this->generateAssetUrl($file) . '"></script>'];
@@ -71,6 +71,10 @@ readonly class ViteExtensionRuntime implements RuntimeExtensionInterface
         return implode(PHP_EOL, $htmlElements);
     }
 
+    /**
+     * @param string $entrypoint
+     * @return array{file:string|null, css:string[]|null, imports:string[]|null}
+     */
     private function parseManifest(string $entrypoint): array
     {
         $manifestPath = $this->publicDir . $this->generateAssetUrl('.vite/manifest.json');
